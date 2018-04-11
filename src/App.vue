@@ -1,14 +1,28 @@
 <template>
   <div id="app">
-    <router-view/>
+    <div class='container-fluid container-menu'>
+      <app-menu></app-menu>
+    </div>
+    <div class='container'>
+      <router-view></router-view>
+    </div>
+    <div class='container-fluid'>
+      <app-footer></app-footer>
+    </div>
   </div>
 </template>
 
 <script>
-import Menu from './components/partials/Menu'
+import Menu from '@/components/partials/Menu'
+import Footer from '@/components/partials/Footer'
 
 export default {
-  name: 'App'
+  name: 'App',
+
+  components: {
+        'app-menu': Menu,
+        'app-footer': Footer
+    }
 }
 </script>
 
@@ -21,4 +35,10 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+</style>
+
+<style scoped>
+  .container-menu {
+    margin-bottom: 60px;
+  }
 </style>

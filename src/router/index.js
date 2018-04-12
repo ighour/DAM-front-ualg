@@ -7,11 +7,11 @@ import UserRegister from '@/components/user/Register'
 import Movie from '@/components/Movie'
 import MovieIndex from '@/components/movie/Index'
 import MovieCreate from '@/components/movie/Create'
-import MovieShow from '@/components/movie/Show'
+import MovieEdit from '@/components/movie/Edit'
 import Genre from '@/components/Genre'
 import GenreIndex from '@/components/genre/Index'
 import GenreCreate from '@/components/genre/Create'
-import GenreShow from '@/components/genre/Show'
+import GenreEdit from '@/components/genre/Edit'
 
 Vue.use(Router)
 
@@ -27,13 +27,13 @@ export default new Router({
     { path: '/movies', component: Movie, redirect: {name: 'movie.index'}, children: [
       { path: '', component: MovieIndex, name: 'movie.index' },
       { path: 'create', component: MovieCreate, name: 'movie.create' },
-      { path: ':id', component: MovieShow, name: 'movie.show' }
+      { path: ':id/edit', component: MovieEdit, name: 'movie.edit' }
     ]},
 
     { path: '/genres', component: Genre, redirect: {name: 'genre.index'}, children: [
       { path: '', component: GenreIndex, name: 'genre.index' },
       { path: 'create', component: GenreCreate, name: 'genre.create' },
-      { path: ':id', component: GenreShow, name: 'genre.show' }
+      { path: ':id/edit', component: GenreEdit, name: 'genre.edit' }
     ]},
 
     { path: '*', redirect: {name: 'index'}}

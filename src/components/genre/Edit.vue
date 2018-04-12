@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  name: 'MovieShow',
+  name: 'GenreEdit',
   data () {
     return {
-      msg: 'Show'
+      msg: 'Edit'
     }
   }
 }

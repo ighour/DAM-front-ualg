@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for='element in elements' :key='element.id[0]'>
+        <tr v-for='(element, index) in elements' :key='element.id[0]'>
           <td>{{element.id[0]}}</td>
           <td>{{element.name[0]}}</td>
           <td>{{element.year[0]}}</td>
@@ -26,7 +26,7 @@
           <td>{{element.created_at[0]}}</td>
           <td>{{element.updated_at[0]}}</td>
           <td>{{getGenres(element.genres)}}</td>
-          <td><span @click='edit(element.id)'>Edit</span> / <span @click='destroy(element.id)'>Delete</span></td>
+          <td><span @click='edit(element.id)'>Edit</span> / <span @click='destroy(element.id, index)'>Delete</span></td>
         </tr>
       </tbody>
     </table>
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import axiosInstance from '@/axios/config'
 import xmlToJson from 'xml-to-json-promise'
 
@@ -84,8 +85,12 @@ export default {
 
     },
 
-    destroy(id){
-
+    destroy(id, index){
+      axiosInstance.delete('movies/' + id)
+      .then(response => {
+        Vue.delete(this.elements, index);
+      })
+      .catch(e => {})
     }
   }
 }

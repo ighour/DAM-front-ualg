@@ -13,6 +13,7 @@
           <th>Created At</th>
           <th>Updated At</th>
           <th>Genres</th>
+          <th>Management</th>
         </tr>
       </thead>
       <tbody>
@@ -25,6 +26,7 @@
           <td>{{element.created_at[0]}}</td>
           <td>{{element.updated_at[0]}}</td>
           <td>{{getGenres(element.genres)}}</td>
+          <td><span @click='edit(element.id)'>Edit</span> / <span @click='destroy(element.id)'>Delete</span></td>
         </tr>
       </tbody>
     </table>
@@ -76,6 +78,14 @@ export default {
       })
 
       return text
+    },
+
+    edit(id){
+
+    },
+
+    destroy(id){
+
     }
   }
 }

@@ -96,12 +96,25 @@ export default {
   name: 'MovieIndex',
 
   created() {
-    axiosInstance.get(`movies`)
+    axiosInstance.get('movies')
     .then(response => {
-      xmlToJson.xmlDataToJSON(response.data)
-        .then(json => {
-            this.fetchData = json
-        });
+      let movies = response
+
+      axiosInstance.get('genres')
+      .then(response => {
+        let genres = response
+
+        xmlToJson.xmlDataToJSON(movies.data)
+          .then(json => {
+              this.fetchData = json
+          });
+
+        xmlToJson.xmlDataToJSON(genres.data)
+          .then(json => {
+              this.fetchGenres = json
+          });
+      })
+      .catch(e => {})
     })
     .catch(e => {})
   },
@@ -110,6 +123,7 @@ export default {
     return {
       msg: 'Movies List',
       fetchData: [],
+      fetchGenres: [],
       fields: {
         name: {sortable: true},
         year: {sortable: true, formatter: 'getFullYear'},
@@ -128,10 +142,6 @@ export default {
         status: 'NW',
         genre_id: null
       },
-      genres: [
-        {text: 'genero 1', value: 1},
-        {text: 'genero 2', value: 2}
-      ],
       statuses: [
         {text: 'Watched', value: 'W'},
         {text: 'Not Watched', value: 'NW'}
@@ -149,6 +159,22 @@ export default {
 
     formTitle(){
       return this.formType == 2 ? 'Edit Movie' : 'Add Movie'
+    },
+
+    genres(){
+      if(this.fetchGenres.genres == null)
+        return []
+
+      let genres = []
+
+      this.fetchGenres.genres.genre.forEach(g => {
+        genres.push({
+          text: this.getObjectAtt(g, 'name'),
+          value: this.getObjectAtt(g, 'id')
+        })
+      })
+
+      return genres
     }
   },
 

@@ -6,9 +6,6 @@ import UserLogin from '@/components/user/Login'
 import UserRegister from '@/components/user/Register'
 import Movie from '@/components/Movie'
 import Genre from '@/components/Genre'
-import GenreIndex from '@/components/genre/Index'
-import GenreCreate from '@/components/genre/Create'
-import GenreEdit from '@/components/genre/Edit'
 
 Vue.use(Router)
 
@@ -23,11 +20,7 @@ export default new Router({
 
     { path: '/movies', component: Movie, name: 'movie' },
 
-    { path: '/genres', component: Genre, redirect: {name: 'genre.index'}, children: [
-      { path: '', component: GenreIndex, name: 'genre.index' },
-      { path: 'create', component: GenreCreate, name: 'genre.create' },
-      { path: ':id/edit', component: GenreEdit, name: 'genre.edit' }
-    ]},
+    { path: '/genres', component: Genre, name: 'genre' },
 
     { path: '*', redirect: {name: 'index'}}
   ]

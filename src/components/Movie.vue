@@ -96,27 +96,31 @@ export default {
   name: 'MovieIndex',
 
   created() {
-    axiosInstance.get('movies')
-    .then(response => {
-      let movies = response
+    if(false) //Change when auth is done
+      this.$router.push({name: 'user.login'})
 
-      axiosInstance.get('genres')
+    else
+      axiosInstance.get('movies' + '?user_id=1') //Change when auth is done
       .then(response => {
-        let genres = response
+        let movies = response
 
-        xmlToJson.xmlDataToJSON(movies.data)
-          .then(json => {
-              this.fetchData = json
-          });
+        axiosInstance.get('genres')
+        .then(response => {
+          let genres = response
 
-        xmlToJson.xmlDataToJSON(genres.data)
-          .then(json => {
-              this.fetchGenres = json
-          });
+          xmlToJson.xmlDataToJSON(movies.data)
+            .then(json => {
+                this.fetchData = json
+            });
+
+          xmlToJson.xmlDataToJSON(genres.data)
+            .then(json => {
+                this.fetchGenres = json
+            });
+        })
+        .catch(e => {console.log(e.response)})
       })
-      .catch(e => {})
-    })
-    .catch(e => {})
+      .catch(e => {console.log(e.response)})
   },
 
   data () {
@@ -192,7 +196,7 @@ export default {
       .then(response => {
         this.elements.push(response.data.data)
       })
-      .catch(e => {})
+      .catch(e => {console.log(e.response)})
     },
 
     edit(){
@@ -216,7 +220,7 @@ export default {
         updatedElement.genre_id = this.form.genre_id
         updatedElement.genre = this.getObjectAtt(response.data.data, 'genre')
       })
-      .catch(e => {})
+      .catch(e => {console.log(e.response)})
     },
 
     destroy(item, index){
@@ -226,7 +230,7 @@ export default {
       .then(response => {
         Vue.delete(this.elements, index);
       })
-      .catch(e => {})
+      .catch(e => {console.log(e.response)})
     },
 
     getFullYear(value){

@@ -93,7 +93,7 @@ import axiosInstance from '@/axios/config'
 import xmlToJson from 'xml-to-json-promise'
 
 export default {
-  name: 'MovieIndex',
+  name: 'Movie',
 
   created() {
     if(false) //Change when auth is done
@@ -104,7 +104,7 @@ export default {
       .then(response => {
         let movies = response
 
-        axiosInstance.get('genres')
+        axiosInstance.get('genres' + '?user_id=1') //Change when auth is done
         .then(response => {
           let genres = response
 
@@ -208,7 +208,8 @@ export default {
         director: this.form.director,
         cine_date: this.form.cine_date,
         status: this.form.status,
-        genre_id: this.form.genre_id
+        genre_id: this.form.genre_id,
+        user_id: 1, //Change when auth is done
       })
       .then(response => {
         let updatedElement = this.elements[this.editingIndex]
@@ -226,7 +227,9 @@ export default {
     destroy(item, index){
       let id = this.getObjectAtt(item, 'id')
 
-      axiosInstance.delete('movies/' + id)
+      axiosInstance.delete('movies/' + id, {
+        user_id: 1 //Change when auth is done
+      })
       .then(response => {
         Vue.delete(this.elements, index);
       })

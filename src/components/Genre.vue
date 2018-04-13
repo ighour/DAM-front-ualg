@@ -44,7 +44,7 @@ export default {
 
   created() {
     if(false) //Change when auth is done
-      this.$router.push({name: 'user.login'})
+      this.$router.push({name: 'index'})
 
     else
       axiosInstance.get('genres' + '?user_id=1') //Change when auth is done

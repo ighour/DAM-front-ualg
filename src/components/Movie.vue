@@ -59,6 +59,16 @@
           </b-form-input>
         </b-form-group>
 
+        <b-form-group id="movieStatus"
+                      label="Status"
+                      label-for="movieStatus">
+          <b-form-select id="movieStatus"
+                        :options="statuses"
+                        required
+                        v-model="form.status">
+          </b-form-select>
+        </b-form-group>
+
         <b-form-group id="movieGenre"
                       label="Genre"
                       label-for="movieGenre">
@@ -105,6 +115,7 @@ export default {
         year: {sortable: true, formatter: 'getFullYear'},
         director: {sortable: true},
         cine_date: {sortable: true, label: 'Cine'},
+        status: {sortable: true, formatter: 'getStatus'},
         genre: {sortable: true},
         actions: {sortable: false}
       },
@@ -114,11 +125,16 @@ export default {
         year: '',
         director: '',
         cine_date: '',
+        status: 'NW',
         genre_id: null
       },
       genres: [
         {text: 'genero 1', value: 1},
         {text: 'genero 2', value: 2}
+      ],
+      statuses: [
+        {text: 'Watched', value: 'W'},
+        {text: 'Not Watched', value: 'NW'}
       ],
       show: true,
       formType: null,
@@ -143,6 +159,7 @@ export default {
         year: this.form.year,
         director: this.form.director,
         cine_date: this.form.cine_date,
+        status: this.form.status,
         user_id: 1, //Change when auth is done
         genre_id: this.form.genre_id
       })
@@ -160,6 +177,7 @@ export default {
         year: this.form.year,
         director: this.form.director,
         cine_date: this.form.cine_date,
+        status: this.form.status,
         genre_id: this.form.genre_id
       })
       .then(response => {
@@ -168,7 +186,9 @@ export default {
         updatedElement.year = this.form.year
         updatedElement.director = this.form.director
         updatedElement.cine_date = this.form.cine_date
+        updatedElement.status = this.form.status
         updatedElement.genre_id = this.form.genre_id
+        updatedElement.genre = this.getObjectAtt(response.data.data, 'genre')
       })
       .catch(e => {})
     },
@@ -185,6 +205,10 @@ export default {
 
     getFullYear(value){
       return value != '' ? new Date(value).getFullYear() : null
+    },
+
+    getStatus(value){
+      return value == 'W' ? 'Watched' : 'Not Watched'
     },
 
     onSubmit (evt) {
@@ -223,6 +247,7 @@ export default {
         year: this.getObjectAtt(item, 'year'),
         director: this.getObjectAtt(item, 'director'),
         cine_date: this.getObjectAtt(item, 'cine_date'),
+        status: this.getObjectAtt(item, 'status'),
         genre_id: this.getObjectAtt(item, 'genre_id')
       }
 
@@ -236,6 +261,7 @@ export default {
         year: '',
         director: '',
         cine_date: '',
+        status: '',
         genre_id: null
       }
     },

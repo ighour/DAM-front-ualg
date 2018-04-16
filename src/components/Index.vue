@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-if='false'>Hello, NOME!</p>
+    <p v-if='token'>Hello, {{user.name}}!</p>
 
     <b-container v-else fluid class='register'>
       <b-row>
@@ -50,7 +50,7 @@
         </b-row>
       </b-container>
 
-    <b-modal v-if='!false' id="registerModal" title="Register" ref="myRegisterModal">
+    <b-modal v-if='!token' id="registerModal" title="Register" ref="myRegisterModal">
       <b-form @submit="onSubmitRegister" @reset="onResetRegister" v-if="showRegister">
 
         <b-form-group id="registerName"
@@ -97,6 +97,7 @@
 
 <script>
 import axiosInstance from '@/axios/config'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Index',
@@ -121,7 +122,19 @@ export default {
     }
   },
 
+  computed: {
+    ...mapGetters({
+      token: 'getToken',
+      user: 'getUser'
+    })
+  },
+
   methods: {
+    ...mapActions({
+      setToken: 'setToken',
+      setUser: 'setUser'
+    }),
+
     onSubmit (evt) {
       evt.preventDefault()
 
@@ -130,7 +143,9 @@ export default {
         password: this.form.password
       })
       .then(response => {
-        let data = response.data.data;      
+        let data = response.data.data;
+        this.setToken(data.token)
+        this.setUser({...data.user})   
       })
       .catch(e => {
         this.showError = 10
@@ -147,7 +162,9 @@ export default {
         password: this.formRegister.password
       })
       .then(response => {
-        let data = response.data.data;  
+        let data = response.data.data;
+        this.setToken(data.token)
+        this.setUser({...data.user})   
       })
       .catch(e => {
         this.showErrorRegister = 10

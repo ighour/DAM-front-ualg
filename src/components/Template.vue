@@ -31,16 +31,17 @@
 <script>
 import Vue from 'vue'
 import axiosInstance from '@/axios/config'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'TableTemplate',
 
   created() {
-    if(false) //CHANGE THIS
+    if(!this.token)
       this.$router.push({name: 'index'})
 
     else
-      axiosInstance.get(this.conf.resource + '?user_id=1') //CHANGE THIS
+      axiosInstance.get(this.conf.resource + '?user_id=' + this.user.id)
       .then(response => {
           this.responseIndex(response)
       })
@@ -57,6 +58,11 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      token: 'getToken',
+      user: 'getUser'
+    }),
+
     formTitle(){
       return this.formType == 2 ? 'Edit ' + this.conf.formTitle : 'Add ' + this.conf.formTitle
     }
@@ -65,7 +71,7 @@ export default {
   methods: {
     create(){
         let parameters = this.form
-        parameters.user_id = 1 //CHANGE THIS
+        parameters.user_id = this.user.id
 
       axiosInstance.post(this.conf.resource, parameters)
       .then(response => {
@@ -78,7 +84,7 @@ export default {
       let id = this.form.id
 
       let parameters = this.form
-      parameters.user_id = 1 //CHANGE THIS
+      parameters.user_id = this.user.id
 
       axiosInstance.put(this.conf.resource + '/' + id, parameters)
       .then(response => {
@@ -90,7 +96,7 @@ export default {
     destroy(item, index){
       let id = this.getObjectAtt(item, 'id')
 
-      axiosInstance.delete(this.conf.resource + '/' + id + '?user_id=1') //CHANGE THIS
+      axiosInstance.delete(this.conf.resource + '/' + id + '?user_id=' + this.user.id)
       .then(response => {
         Vue.delete(this.elements, index);
       })

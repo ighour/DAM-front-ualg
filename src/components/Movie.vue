@@ -78,6 +78,7 @@
 <script>
 import axiosInstance from '@/axios/config'
 import xmlToJson from 'xml-to-json-promise'
+import { mapGetters } from 'vuex'
 
 import TableTemplate from './Template'
 
@@ -127,6 +128,10 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            user: 'getUser'
+        }),
+
         elements(){
             return this.fetch.data.movies != null ? this.fetch.data.movies.movie : []
         },
@@ -150,7 +155,7 @@ export default {
 
     methods: {
         responseIndex(response){
-            axiosInstance.get('genres' + '?user_id=1')    //CHANGE THIS
+            axiosInstance.get('genres' + '?user_id=' + this.user.id)
             .then(r => {
                 xmlToJson.xmlDataToJSON(response.data)
                     .then(json => {
@@ -177,7 +182,7 @@ export default {
         },
 
         getFullYear(value){
-            return value != '' ? new Date(value).getFullYear() : null
+            return value != null && value != '' ? new Date(value).getFullYear() : null
         },
 
         getStatus(value){
@@ -205,7 +210,7 @@ export default {
                 year: '',
                 director: '',
                 cine_date: '',
-                status: '',
+                status: 'NW',
                 genre_id: null
             }
         },

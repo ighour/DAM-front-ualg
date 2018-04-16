@@ -3,14 +3,17 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+let token = localStorage.getItem('token')
+let user = JSON.parse(localStorage.getItem('user'))
+
 export const store = new Vuex.Store({
     state: {
         auth: {
-            token: null,
+            token: token,
             user: {
-                id: null,
-                name: null,
-                email: null
+                id: user != null ? user.id : null,
+                name: user != null ? user.name : null,
+                email: user != null ? user.email : null,
             }
         }
     },
@@ -32,10 +35,22 @@ export const store = new Vuex.Store({
     },
     actions: {
         setToken({commit}, payload){
+            localStorage.setItem('token', payload)
             commit('setToken', payload)
         },
         setUser({commit}, payload){
+            localStorage.setItem('user', JSON.stringify(payload))
             commit('setUser', payload)
+        },
+        clearAuth({commit}){
+            localStorage.removeItem('token')
+            localStorage.removeItem('user')
+            commit('setToken', null)
+            commit('setUser', {
+                id: null,
+                name: null,
+                email: null
+            })
         }
     }
 })

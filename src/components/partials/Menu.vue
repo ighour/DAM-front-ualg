@@ -21,13 +21,11 @@ export default {
 
     methods: {
         ...mapActions({
-            setToken: 'setToken',
-            setUser: 'setUser'
+            clearAuth: 'clearAuth'
         }),
 
         logout(){
-            this.setToken(null)
-            this.setUser(null)
+            this.clearAuth()
             this.$router.push({name: 'index'})
         }
     }

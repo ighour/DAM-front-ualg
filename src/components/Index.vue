@@ -145,7 +145,7 @@ export default {
       .then(response => {
         let data = response.data.data;
         this.setToken(data.token)
-        this.setUser({...data.user})   
+        this.setUser(data.user)
       })
       .catch(e => {
         this.showError = 10

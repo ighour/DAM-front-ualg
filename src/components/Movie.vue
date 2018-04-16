@@ -150,7 +150,7 @@ export default {
 
     methods: {
         responseIndex(response){
-            axiosInstance.get('genres' + '?user_id=1') //Change when auth is done
+            axiosInstance.get('genres' + '?user_id=1')    //CHANGE THIS
             .then(r => {
                 xmlToJson.xmlDataToJSON(response.data)
                     .then(json => {

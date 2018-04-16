@@ -36,11 +36,11 @@ export default {
   name: 'TableTemplate',
 
   created() {
-    if(false) //Change when auth is done
+    if(false) //CHANGE THIS
       this.$router.push({name: 'index'})
 
     else
-      axiosInstance.get(this.conf.resource + '?user_id=1') //Change when auth is done
+      axiosInstance.get(this.conf.resource + '?user_id=1') //CHANGE THIS
       .then(response => {
           this.responseIndex(response)
       })
@@ -65,7 +65,7 @@ export default {
   methods: {
     create(){
         let parameters = this.form
-        parameters.user_id = 1 //Change when auth is done
+        parameters.user_id = 1 //CHANGE THIS
 
       axiosInstance.post(this.conf.resource, parameters)
       .then(response => {
@@ -78,7 +78,7 @@ export default {
       let id = this.form.id
 
       let parameters = this.form
-      parameters.user_id = 1 //Change when auth is done
+      parameters.user_id = 1 //CHANGE THIS
 
       axiosInstance.put(this.conf.resource + '/' + id, parameters)
       .then(response => {
@@ -90,7 +90,7 @@ export default {
     destroy(item, index){
       let id = this.getObjectAtt(item, 'id')
 
-      axiosInstance.delete(this.conf.resource + '/' + id + '?user_id=1') //Change when auth is done
+      axiosInstance.delete(this.conf.resource + '/' + id + '?user_id=1') //CHANGE THIS
       .then(response => {
         Vue.delete(this.elements, index);
       })

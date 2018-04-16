@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-if='auth.token'>Hello, {{auth.name}}!</p>
+    <p v-if='false'>Hello, NOME!</p>
 
     <b-container v-else fluid class='register'>
       <b-row>
@@ -50,7 +50,7 @@
         </b-row>
       </b-container>
 
-    <b-modal v-if='!auth.token' id="registerModal" title="Register" ref="myRegisterModal">
+    <b-modal v-if='!false' id="registerModal" title="Register" ref="myRegisterModal">
       <b-form @submit="onSubmitRegister" @reset="onResetRegister" v-if="showRegister">
 
         <b-form-group id="registerName"
@@ -101,8 +101,6 @@ import axiosInstance from '@/axios/config'
 export default {
   name: 'Index',
 
-  props: ['auth'],
-
   data () {
     return {
       form: {
@@ -132,12 +130,7 @@ export default {
         password: this.form.password
       })
       .then(response => {
-        this.$emit('userAuth', {
-          token: response.data.data.token,
-          id: response.data.data.user.id,
-          name: response.data.data.user.name,
-          email: response.data.data.user.email
-        })
+        let data = response.data.data;      
       })
       .catch(e => {
         this.showError = 10
@@ -154,12 +147,7 @@ export default {
         password: this.formRegister.password
       })
       .then(response => {
-        this.$emit('userAuth', {
-          token: response.data.data.token,
-          id: response.data.data.user.id,
-          name: response.data.data.user.name,
-          email: response.data.data.user.email
-        })
+        let data = response.data.data;  
       })
       .catch(e => {
         this.showErrorRegister = 10

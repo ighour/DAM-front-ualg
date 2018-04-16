@@ -227,9 +227,7 @@ export default {
     destroy(item, index){
       let id = this.getObjectAtt(item, 'id')
 
-      axiosInstance.delete('movies/' + id, {
-        user_id: 1 //Change when auth is done
-      })
+      axiosInstance.delete('movies/' + id + '?user_id=1') //Change when auth is done
       .then(response => {
         Vue.delete(this.elements, index);
       })

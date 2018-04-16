@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div class='container-fluid'>
-      <app-menu></app-menu>
+      <app-menu :auth='auth'></app-menu>
     </div>
     <div class='container content'>
-      <router-view></router-view>
+      <router-view :auth='auth' v-on:userAuth='userAuth'></router-view>
     </div>
     <div class='container-fluid'>
       <app-footer></app-footer>
@@ -22,7 +22,25 @@ export default {
   components: {
         'app-menu': Menu,
         'app-footer': Footer
+  },
+
+  data(){
+    return {
+      auth: {
+        email: null,
+        name: null,
+        token: null
+      }
     }
+  },
+
+  methods: {
+    userAuth(params){
+      this.auth.token = params.token
+      this.auth.name = params.name
+      this.auth.email = params.email
+    }
+  }
 }
 </script>
 

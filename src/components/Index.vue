@@ -134,6 +134,7 @@ export default {
       .then(response => {
         this.$emit('userAuth', {
           token: response.data.data.token,
+          id: response.data.data.user.id,
           name: response.data.data.user.name,
           email: response.data.data.user.email
         })
@@ -155,6 +156,7 @@ export default {
       .then(response => {
         this.$emit('userAuth', {
           token: response.data.data.token,
+          id: response.data.data.user.id,
           name: response.data.data.user.name,
           email: response.data.data.user.email
         })

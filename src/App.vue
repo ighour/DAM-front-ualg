@@ -27,6 +27,7 @@ export default {
   data(){
     return {
       auth: {
+        id: null,
         email: null,
         name: null,
         token: null
@@ -36,6 +37,7 @@ export default {
 
   methods: {
     userAuth(params){
+      this.auth.id = params.id
       this.auth.token = params.token
       this.auth.name = params.name
       this.auth.email = params.email

@@ -37,7 +37,7 @@ export const store = new Vuex.Store({
     actions: {
         setToken({commit}, payload){
             localStorage.setItem('token', payload)
-            axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + payload;
+            axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + payload        
             commit('setToken', payload)
         },
         setUser({commit}, payload){
@@ -47,7 +47,7 @@ export const store = new Vuex.Store({
         clearAuth({commit}){
             localStorage.removeItem('token')
             localStorage.removeItem('user')
-            axiosInstance.defaults.headers.common['Authorization'] = null;
+            axiosInstance.defaults.headers['Authorization'] = null
             commit('setToken', null)
             commit('setUser', {
                 id: null,

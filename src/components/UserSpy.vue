@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h1 v-if='!user' class='header'>Users</h1>
+    <h1 v-if='!user' class='header'>My Friends</h1>
 
     <template v-else class='header'>
       <div class='text-center' style='margin-right: 1%'>
         <b-button size="md" @click.stop="spyUsers" class="mr-1" variant='info'>
-           Show Users
+           Go Back to Friends List
         </b-button>
       </div>
       <h1>Movies</h1>

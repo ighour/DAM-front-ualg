@@ -2,7 +2,9 @@
   <div>
     <h1>{{ conf.title }}</h1>
 
-    <b-btn v-b-modal.formModal @click='formCreate()' variant='primary'>{{conf.addMsg}}</b-btn>
+    <div class='text-right' style='margin-right: 1%'>
+      <b-btn v-b-modal.formModal @click='formCreate()' variant='primary'>{{conf.addMsg}}</b-btn>
+    </div>
 
     <b-container fluid>
       <!-- User Interface controls -->

@@ -1,6 +1,7 @@
 <template>
     <table-template :conf='conf'
                     :elements='elements'
+                    :newElements='newElements'
                     :fields='fields'
                     :form='form'
                     :responseIndex='responseIndex'
@@ -58,7 +59,8 @@ export default {
                 name: '',
                 user_id: null
             },
-            editingIndex: null
+            editingIndex: null,
+            newElements: []
         }
     },
 
@@ -77,7 +79,16 @@ export default {
         },
 
         responseEdit(response){
-            let updatedElement = this.elements[this.editingIndex]
+            let updatedElement
+
+            let countOriginal = this.elements.length - 1
+
+            if(this.editingIndex > countOriginal)
+                updatedElement = this.newElements[this.editingIndex - countOriginal - 1]
+
+            else
+                updatedElement = this.elements[this.editingIndex]
+
             updatedElement.name = this.form.name
         },
 

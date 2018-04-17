@@ -35,7 +35,7 @@
       </b-row>
 
       <!-- Table -->
-      <b-table striped bordered small hover :items="elements" :fields="fields"
+      <b-table striped bordered small hover :items="elements.concat(newElements)" :fields="fields"
               :filter="filter"
               :sort-by.sync="sortBy"
               :sort-desc.sync="sortDesc">
@@ -85,7 +85,7 @@ export default {
       .catch(e => {console.log(e.response)})
   },
 
-  props: ['conf', 'elements', 'fields', 'form', 'responseIndex', 'responseEdit', 'editingIndex', 'getObjectAtt', 'updateEditingForm', 'resetForm'],
+  props: ['conf', 'elements', 'newElements', 'fields', 'form', 'responseIndex', 'responseEdit', 'editingIndex', 'getObjectAtt', 'getIndexById', 'updateEditingForm', 'resetForm'],
 
   data () {
     return {
@@ -119,7 +119,7 @@ export default {
     create(){
       axiosInstance.post(this.conf.resource, this.form)
       .then(response => {
-        this.elements.push(response.data.data)
+         Vue.set(this.newElements, this.newElements.length, response.data.data)
       })
       .catch(e => {console.log(e.response)})
     },
@@ -139,7 +139,14 @@ export default {
 
       axiosInstance.delete(this.conf.resource + '/' + id)
       .then(response => {
-        Vue.delete(this.elements, index);
+
+        let countOriginal = this.elements.length - 1
+
+        if(index > countOriginal)
+            Vue.delete(this.newElements, index - countOriginal - 1)
+
+        else
+            Vue.delete(this.elements, index)
       })
       .catch(e => {console.log(e.response)})
     },

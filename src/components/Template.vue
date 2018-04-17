@@ -41,7 +41,7 @@ export default {
       this.$router.push({name: 'index'})
 
     else
-      axiosInstance.get(this.conf.resource + '?user_id=' + this.user.id)
+      axiosInstance.get(this.conf.resource)
       .then(response => {
           this.responseIndex(response)
       })
@@ -70,10 +70,7 @@ export default {
 
   methods: {
     create(){
-        let parameters = this.form
-        parameters.user_id = this.user.id
-
-      axiosInstance.post(this.conf.resource, parameters)
+      axiosInstance.post(this.conf.resource, this.form)
       .then(response => {
         this.elements.push(response.data.data)
       })
@@ -83,10 +80,7 @@ export default {
     edit(){
       let id = this.form.id
 
-      let parameters = this.form
-      parameters.user_id = this.user.id
-
-      axiosInstance.put(this.conf.resource + '/' + id, parameters)
+      axiosInstance.put(this.conf.resource + '/' + id, this.form)
       .then(response => {
         this.responseEdit(response)
       })
@@ -96,7 +90,7 @@ export default {
     destroy(item, index){
       let id = this.getObjectAtt(item, 'id')
 
-      axiosInstance.delete(this.conf.resource + '/' + id + '?user_id=' + this.user.id)
+      axiosInstance.delete(this.conf.resource + '/' + id)
       .then(response => {
         Vue.delete(this.elements, index);
       })

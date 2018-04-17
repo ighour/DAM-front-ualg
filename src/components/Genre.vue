@@ -44,7 +44,7 @@ export default {
                 addMsg: 'Add Genre',
                 resource: 'genres',
                 formTitle: 'Genre',
-                delete: false
+                delete: true
             },
             fetch: {
                 data: []
@@ -55,7 +55,8 @@ export default {
             },
             form: {
                 id: null,
-                name: ''
+                name: '',
+                user_id: null
             },
             editingIndex: null
         }
@@ -92,7 +93,8 @@ export default {
         resetForm(){
             this.form = {
                 id: null,
-                name: ''
+                name: '',
+                user_id: null
             }
         },
 

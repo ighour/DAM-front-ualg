@@ -67,7 +67,6 @@
                         label-for="movieGenre">
             <b-form-select id="movieGenre"
                             :options="genres"
-                            required
                             v-model="form.genre_id">
             </b-form-select>
             </b-form-group>
@@ -117,7 +116,8 @@ export default {
                 director: '',
                 cine_date: '',
                 status: 'NW',
-                genre_id: null
+                genre_id: null,
+                user_id: null
             },
             statuses: [
                 {text: 'Watched', value: 'W'},
@@ -142,10 +142,15 @@ export default {
 
             let genres = []
 
+            genres.push({
+                text: '',
+                value: null
+            })
+
             this.fetch.genres.genres.genre.forEach(g => {
                 genres.push({
-                text: this.getObjectAtt(g, 'name'),
-                value: this.getObjectAtt(g, 'id')
+                    text: this.getObjectAtt(g, 'name'),
+                    value: this.getObjectAtt(g, 'id')
                 })
             })
 
@@ -155,7 +160,7 @@ export default {
 
     methods: {
         responseIndex(response){
-            axiosInstance.get('genres' + '?user_id=' + this.user.id)
+            axiosInstance.get('genres')
             .then(r => {
                 xmlToJson.xmlDataToJSON(response.data)
                     .then(json => {
@@ -211,7 +216,8 @@ export default {
                 director: '',
                 cine_date: '',
                 status: 'NW',
-                genre_id: null
+                genre_id: null,
+                user_id: null
             }
         },
 

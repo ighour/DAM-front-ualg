@@ -167,7 +167,7 @@ export default {
     }),
 
     elements(){
-      return this.fetch.data.users != null ? this.fetch.data.users.user : []
+      return this.fetch.data.users != null && this.fetch.data.users.user != null ? this.fetch.data.users.user : []
     },
 
     sortOptions () {

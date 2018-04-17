@@ -64,7 +64,7 @@ export default {
 
     computed: {
         elements(){
-            return this.fetch.data.genres != null ? this.fetch.data.genres.genre : []
+            return this.fetch.data.genres != null && this.fetch.data.genres.genre != null ? this.fetch.data.genres.genre : []
         }
     },
 

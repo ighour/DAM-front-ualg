@@ -133,19 +133,19 @@ export default {
         }),
 
         elements(){
-            return this.fetch.data.movies != null ? this.fetch.data.movies.movie : []
+            return this.fetch.data.movies != null && this.fetch.data.movies.movie != null ? this.fetch.data.movies.movie : []
         },
 
         genres(){
-            if(this.fetch.genres.genres == null)
-                return []
-
             let genres = []
 
             genres.push({
                 text: '',
                 value: null
             })
+
+            if(this.fetch.genres.genres == null || this.fetch.genres.genres.genre == null)
+                return genres         
 
             this.fetch.genres.genres.genre.forEach(g => {
                 genres.push({

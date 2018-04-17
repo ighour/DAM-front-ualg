@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import axiosInstance from '@/axios/config'
-
 import Menu from '@/components/partials/Menu'
 import Footer from '@/components/partials/Footer'
 

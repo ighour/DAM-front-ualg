@@ -49,10 +49,10 @@ export default {
             fetch: {
                 data: []
             },
-            fields: {
-                name: {sortable: true},
-                actions: {sortable: false}
-            },
+            fields: [
+                { key: 'name', label: 'Name', sortable: true },
+                { key: 'actions', label: 'Actions', sortable: false }
+            ],
             form: {
                 id: null,
                 name: '',

@@ -4,16 +4,51 @@
 
     <b-btn v-b-modal.formModal @click='formCreate()' variant='primary'>{{conf.addMsg}}</b-btn>
 
-    <b-table striped bordered small hover :items="elements" :fields="fields">
-      <template slot="actions" slot-scope="row">
-        <b-button size="sm" v-b-modal.formModal @click='formEdit(row.item, row.index, $event.target)' class="mr-1" variant='warning'>
-          Edit
-        </b-button>
-        <b-button v-if='conf.delete != false' size="sm" @click.stop="destroy(row.item, row.index, $event.target)" class="mr-1" variant='danger'>
-          Delete
-        </b-button>
-      </template>
-    </b-table>
+    <b-container fluid>
+      <!-- User Interface controls -->
+      <b-row>
+        <b-col md="6" class="my-1">
+          <b-form-group horizontal label="Filter" class="mb-0">
+            <b-input-group>
+              <b-form-input v-model="filter" placeholder="Type to Search" />
+              <b-input-group-append>
+                <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
+              </b-input-group-append>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+        <b-col md="6" class="my-1">
+          <b-form-group horizontal label="Sort" class="mb-0">
+            <b-input-group>
+              <b-form-select v-model="sortBy" :options="sortOptions">
+                <option slot="first" :value="null">-- none --</option>
+              </b-form-select>
+              <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+                <option :value="false">Asc</option>
+                <option :value="true">Desc</option>
+              </b-form-select>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <!-- Table -->
+      <b-table striped bordered small hover :items="elements" :fields="fields"
+              :filter="filter"
+              :sort-by.sync="sortBy"
+              :sort-desc.sync="sortDesc">
+
+        <template slot="actions" slot-scope="row">
+          <b-button size="sm" v-b-modal.formModal @click='formEdit(row.item, row.index, $event.target)' class="mr-1" variant='warning'>
+            Edit
+          </b-button>
+          <b-button v-if='conf.delete != false' size="sm" @click.stop="destroy(row.item, row.index, $event.target)" class="mr-1" variant='danger'>
+            Delete
+          </b-button>
+        </template>
+
+      </b-table>
+    </b-container>
 
     <b-modal id="formModal" :title="formTitle" ref="myFormModalRef">
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -53,7 +88,10 @@ export default {
   data () {
     return {
       show: true,
-      formType: null
+      formType: null,
+      sortBy: null,
+      sortDesc: false,
+      filter: null
     }
   },
 
@@ -65,6 +103,13 @@ export default {
 
     formTitle(){
       return this.formType == 2 ? 'Edit ' + this.conf.formTitle : 'Add ' + this.conf.formTitle
+    },
+
+    sortOptions () {
+      // Create an options list from our fields
+      return this.fields
+        .filter(f => f.sortable)
+        .map(f => { return { text: f.label, value: f.key } })
     }
   },
 

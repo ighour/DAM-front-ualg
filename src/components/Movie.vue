@@ -100,15 +100,15 @@ export default {
                 data: [],
                 genres: []
             },
-            fields: {
-                name: {sortable: true},
-                year: {sortable: true, formatter: this.getFullYear},
-                director: {sortable: true},
-                cine_date: {sortable: true, label: 'Cine'},
-                status: {sortable: true, formatter: this.getStatus},
-                genre: {sortable: true},
-                actions: {sortable: false}
-            },
+            fields: [
+                { key: 'name', label: 'Name', sortable: true },
+                { key: 'year', label: 'Year', sortable: true, formatter: this.getFullYear },
+                { key: 'director', label: 'Director', sortable: true },
+                { key: 'cine_date', label: 'Cine', sortable: true },
+                { key: 'status', label: 'Status', sortable: true, formatter: this.getStatus },
+                { key: 'genre', label: 'Genre', sortable: true },
+                { key: 'actions', label: 'Actions', sortable: false }
+            ],
             form: {
                 id: null,
                 name: '',

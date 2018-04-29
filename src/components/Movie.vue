@@ -43,16 +43,6 @@
             </b-form-input>
             </b-form-group>
 
-            <b-form-group id="movieCineDate"
-                        label="Cine Date"
-                        label-for="movieCineDate">
-            <b-form-input id="movieCineDate"
-                            type="date"
-                            v-model="form.cine_date"
-                            placeholder="Movie cine date">
-            </b-form-input>
-            </b-form-group>
-
             <b-form-group id="movieStatus"
                         label="Status"
                         label-for="movieStatus">
@@ -105,7 +95,6 @@ export default {
                 { key: 'name', label: 'Name', sortable: true },
                 { key: 'year', label: 'Year', sortable: true, formatter: this.getFullYear },
                 { key: 'director', label: 'Director', sortable: true },
-                { key: 'cine_date', label: 'Cine', sortable: true },
                 { key: 'status', label: 'Status', sortable: true, formatter: this.getStatus },
                 { key: 'genre', label: 'Genre', sortable: true },
                 { key: 'actions', label: 'Actions', sortable: false }
@@ -115,7 +104,6 @@ export default {
                 name: '',
                 year: '',
                 director: '',
-                cine_date: '',
                 status: 'NW',
                 genre_id: null,
                 user_id: null
@@ -191,7 +179,6 @@ export default {
             updatedElement.name = this.form.name
             updatedElement.year = this.form.year
             updatedElement.director = this.form.director
-            updatedElement.cine_date = this.form.cine_date
             updatedElement.status = this.form.status
             updatedElement.genre_id = this.form.genre_id
             updatedElement.genre = this.getObjectAtt(response.data.data, 'genre')
@@ -211,7 +198,6 @@ export default {
                 name: this.getObjectAtt(item, 'name'),
                 year: this.getObjectAtt(item, 'year'),
                 director: this.getObjectAtt(item, 'director'),
-                cine_date: this.getObjectAtt(item, 'cine_date'),
                 status: this.getObjectAtt(item, 'status'),
                 genre_id: this.getObjectAtt(item, 'genre_id')
             }
@@ -225,7 +211,6 @@ export default {
                 name: '',
                 year: '',
                 director: '',
-                cine_date: '',
                 status: 'NW',
                 genre_id: null,
                 user_id: null

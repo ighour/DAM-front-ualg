@@ -148,7 +148,6 @@ export default {
           { key: 'name', label: 'Name', sortable: true },
           { key: 'year', label: 'Year', sortable: true, formatter: this.getFullYear },
           { key: 'director', label: 'Director', sortable: true },
-          { key: 'cine_date', label: 'Cine', sortable: true },
           { key: 'status', label: 'Status', sortable: true, formatter: this.getStatus },
           { key: 'genre', label: 'Genre', sortable: true },
           { key: 'actions', label: 'Actions', sortable: false }
@@ -217,7 +216,6 @@ export default {
         name: this.getObjectAtt(item, 'name'),
         year: this.getObjectAtt(item, 'year'),
         director: this.getObjectAtt(item, 'director'),
-        cine_date: this.getObjectAtt(item, 'cine_date'),
         status: this.getObjectAtt(item, 'status'),
         genre: this.getObjectAtt(item, 'genre')
       })

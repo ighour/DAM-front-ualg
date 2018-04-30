@@ -62,6 +62,10 @@
 
       </b-form>
     </b-modal>
+
+    <b-button v-if='conf.resource == "movies"' size="sm" @click='jsonToXml()' class="mr-1" variant='info'>
+      Download Backup
+    </b-button>
   </div>
 </template>
 
@@ -85,7 +89,7 @@ export default {
       .catch(e => {console.log(e.response)})
   },
 
-  props: ['conf', 'elements', 'newElements', 'fields', 'form', 'responseIndex', 'responseEdit', 'editingIndex', 'getObjectAtt', 'getIndexById', 'updateEditingForm', 'resetForm'],
+  props: ['conf', 'elements', 'newElements', 'fields', 'form', 'responseIndex', 'responseEdit', 'editingIndex', 'getObjectAtt', 'getIndexById', 'updateEditingForm', 'resetForm', 'jsonToXml'],
 
   data () {
     return {
@@ -186,3 +190,33 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .dropbox {
+    outline: 2px dashed grey; /* the dash box */
+    outline-offset: -10px;
+    background: lightcyan;
+    color: dimgray;
+    padding: 10px 10px;
+    min-height: 200px; /* minimum height */
+    position: relative;
+    cursor: pointer;
+  }
+    .input-file {
+    opacity: 0; /* invisible but it's there! */
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .dropbox:hover {
+    background: lightblue; /* when mouse over to the drop zone, change color */
+  }
+
+  .dropbox p {
+    font-size: 1.2em;
+    text-align: center;
+    padding: 50px 0;
+  }
+</style>

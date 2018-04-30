@@ -9,7 +9,8 @@
                     :editingIndex='editingIndex'
                     :getObjectAtt='getObjectAtt'
                     :updateEditingForm='updateEditingForm'
-                    :resetForm='resetForm'>
+                    :resetForm='resetForm'
+                    :jsonToXml='jsonToXml'>
 
         <template slot='tableForm'>
             <b-form-group id="movieName"
@@ -69,6 +70,7 @@
 import axiosInstance from '@/axios/config'
 import xmlToJson from 'xml-to-json-promise'
 import { mapGetters } from 'vuex'
+import XMLWriter from 'xml-writer'
 
 import TableTemplate from './Template'
 
@@ -222,6 +224,52 @@ export default {
                 return obj[att][0]
 
             return obj[att]
+        },
+
+        jsonToXml(){
+            let XML = new XMLWriter()
+
+            XML.startDocument()
+            XML.startElement("movies")
+
+            this.elements.forEach(e => {
+                XML.startElement("movie")
+                this.setXmlTag(XML, e, 'id')
+                this.setXmlTag(XML, e, 'name')
+                this.setXmlTag(XML, e, 'year')
+                this.setXmlTag(XML, e, 'director')
+                this.setXmlTag(XML, e, 'status')
+                this.setXmlTag(XML, e, 'created_at')
+                this.setXmlTag(XML, e, 'updated_at')
+                this.setXmlTag(XML, e, 'user_id')
+                this.setXmlTag(XML, e, 'genre_id')
+                this.setXmlTag(XML, e, 'genre')
+                XML.endElement()
+            })
+
+            XML.endElement()
+            XML.endDocument()
+
+            let xmlDoc = XML.toString()
+
+            this.downloadFile('movies.xml', xmlDoc)
+        },
+
+        setXmlTag(XML, element, attribute){
+        XML.startElement(attribute).text(this.getObjectAtt(element, attribute)).endElement()
+        },
+
+        downloadFile(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
         }
     }
 }

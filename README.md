@@ -1,21 +1,27 @@
-# movielist
+# MoviesList
 
-> Project for DAM class
+Frontend project for UALg Class "Desenvolvimento de Aplicações Multimédia"
 
-## Build Setup
+## Getting Started
 
-``` bash
-# install dependencies
-npm install
+1. clone the repository
+2. install dependencies (npm install)
+3. run dev (npm run dev) or build (npm run build)
 
-# serve with hot reload at localhost:8080
-npm run dev
+## Built With
 
-# build for production with minification
-npm run build
+* [Javascript](https://www.w3schools.com/js/default.asp) - Programming Language
+* [VueJS](https://vuejs.org/) - Javascript framework
+* [Axios](https://github.com/axios/axios) - Promise based HTTP client
+* [Bootstrap-Vue](https://bootstrap-vue.js.org/) - Implements Bootstrap v4 on VueJS
+* [ExpressJS](https://expressjs.com/) - Framework for NodeJS to serve the app
+* [Vuex](https://github.com/vuejs/vuex) - Centralized State Management for Vue.js
+* [Xml-to-json-promise](https://www.npmjs.com/package/xml-to-json-promise) - Convert an XML file or XML data to JSON (via xml2js), with promises
+* [Xml-writer](https://www.npmjs.com/package/xml-writer) - Native and full javascript implementation of the classic XMLWriter class
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
+## Live
+Live version can be found on [Heroku](https://dam-movie-frontend.herokuapp.com/).
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Authors
+
+* **Célio Ighour** - *Full work* - [Ighour](https://github.com/ighour)

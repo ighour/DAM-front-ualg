@@ -66,6 +66,17 @@
     <b-button v-if='conf.resource == "movies"' size="sm" @click='jsonToXml()' class="mr-1" variant='info'>
       Download Backup
     </b-button>
+
+    <div style='width:25%'>
+      <b-form-file id="fileToUpload"
+                      v-if='conf.resource == "movies"'
+                      accept='text/xml'
+                      name='fileToUpload'
+                      placeholder='Upload Backup'
+                      v-model='file'
+                      @change="fileUploaded">
+      </b-form-file>
+    </div>
   </div>
 </template>
 
@@ -97,7 +108,8 @@ export default {
       formType: null,
       sortBy: null,
       sortDesc: false,
-      filter: null
+      filter: null,
+      file: null
     }
   },
 
@@ -186,6 +198,27 @@ export default {
       this.formType = 2
    
       this.updateEditingForm(item, index);
+    },
+
+    fileUploaded(event){
+      let file = event.target.files[0]
+
+      if(!file)
+        return
+
+      let dot = file.name.split('.')
+
+      if(dot[dot.length-1] != 'xml')
+        return
+
+      let data = new FormData()
+      data.append('file', file)
+
+      axiosInstance.post('movies/batch', data)
+      .then(response => {
+         this.$router.go()
+      })
+      .catch(e => {console.log(e.response)})
     }
   }
 }

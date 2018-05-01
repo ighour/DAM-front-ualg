@@ -2,6 +2,9 @@
 
 Frontend project for UALg Class "Desenvolvimento de Aplicações Multimédia"
 
+# Objective
+The app was created to maintain a list of movies which you have watched or you want to watch later. Also, you can check the list of other users too and clone their movies to your list.
+
 ## Getting Started
 
 1. clone the repository
